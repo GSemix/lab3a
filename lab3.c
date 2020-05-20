@@ -39,7 +39,6 @@ int line_processing (char * line, int count) {
 	}
 	
 	if (strlen(res) != 0) {
-		//Как изменить размер line?
 		res[j - 1] = '\0';
 		strncpy(line, res, j);
 	} else line[0] = '\0';
