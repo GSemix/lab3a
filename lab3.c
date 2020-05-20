@@ -59,7 +59,7 @@ int clear_memory (char ** line, int  * count) {
 
 int main () {
 	char some_letter[11];
-	int count = 10;
+	int count = 1;
 	int sc = 1;
 	char * line = calloc(count, sizeof(char));
 	
