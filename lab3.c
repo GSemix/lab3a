@@ -10,14 +10,14 @@ int plus_memory (char ** line, int  * count, char * some_letter) {
 	return 0;
 }
 
-int line_processing (char * line, int count) {
+char * line_processing (char * line, int count) {
 	int start = 0;
 	int clone = 1;
 	int j = 0;
-	char * res = calloc(count, sizeof(char));
+	char * res = calloc(count*2, sizeof(char));
 
 	for (int i = 0; i < (count - 1); i++) {
-	
+
 		if (line[i] == line[i + 1] && line[i] != 9 && line[i] != 32) {
 		
 			if (clone == 1) start = i;
@@ -27,7 +27,6 @@ int line_processing (char * line, int count) {
 		} else {
 		
 			if (clone > 1) {
-			
 				strncpy(&res[j], &line[start], clone);
 				strcat(res, " ");
 				j += clone + 1;
@@ -40,12 +39,11 @@ int line_processing (char * line, int count) {
 	
 	if (strlen(res) != 0) {
 		res[j - 1] = '\0';
-		strncpy(line, res, j);
-	} else line[0] = '\0';
+	}
+
+	res = realloc(res, strlen(res) + 1);
 	
-	free(res);
-	
-	return 0;
+	return res;
 }
 
 int clear_memory (char ** line, int  * count) {
@@ -61,6 +59,7 @@ int main () {
 	int count = 1;
 	int sc = 1;
 	char * line = calloc(count, sizeof(char));
+	char * res;
 	
 	do {
 		sc = scanf("%10[^\n]", some_letter);
@@ -73,8 +72,9 @@ int main () {
 			
 		} else {
 			scanf("%*c");
-			line_processing(line, count);
-			printf("$%s$\n\n", line);
+			res = line_processing(line, count);
+			printf("$%s$\n\n", res);
+			free(res);
 			clear_memory(&line, &count);
 		}
 		
